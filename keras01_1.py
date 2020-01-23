@@ -14,7 +14,7 @@ from keras.layers import Dense
 
 model=Sequential()
 
-model.add(Dense(512, input_dim=1)) # 레이어 추가
+model.add(Dense(512, input_dim=1) # 레이어 추가
 model.add(Dense(512)) # Node 조절
 model.add(Dense(1))
 
