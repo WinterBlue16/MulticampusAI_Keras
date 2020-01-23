@@ -3,15 +3,13 @@
 import numpy as np
 
 x = np.array(range(1, 101))
-y = np.array(range(1, 101)) # range 개념 설명 : https://wayhome25.github.io/python/2017/02/24/py-07-for-loop/
+y = np.array(range(1, 101)) 
 
 from sklearn.model_selection import train_test_split
-# split 개념 설명:http://blog.naver.com/PostView.nhn?blogId=siniphia&logNo=221396370872&redirect=Dlog&widgetTypeCall=true&directAccess=false
 
-# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, shuffle=False)
-# x_train, x_val, y_train, y_val = train_test_split(x, y, train_size=0.6, shuffle=False)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4, shuffle=False)
-x_val, x_test, y_val, y_test = train_test_split(x, y, test_size=0.5, shuffle=False)
+# 입력값은 x(x_train과 x_test로 분리), y(y_train과 y_test로 분리)
+x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, test_size=0.5, shuffle=False)
 
 #2. 모델구성
 from keras.models import Sequential
@@ -38,10 +36,15 @@ loss, mse = model.evaluate(x_test, y_test, batch_size=1) # loss는 자동적으�
 # 데이터 크기보다 더 큰 batch size를 줄 경우 데이터 크기로 계산된다.
 print('mse :', mse)
 
-x_prd = np.array([304, 182, 225])
-predictions = model.predict(x_prd)
-print(predictions)
+x_prd = np.array([290, 154, 467])
+g = model.predict(x_prd)
+print(g)
 
-# x_test = model.predict(x)
-# print(x_test)
-# 원래 회귀모델에서는 acc를 사용하지 않는다.
+y_predict = model.predict(x_test)
+
+# RMSE 구하기
+from sklearn.metrics import mean_squared_error
+
+def RMSE(y_test, y_predict): # 실제 정답값, 모델을 통한 예측값 
+    return np.sqrt(mean_squared_error(y_test, y_predict))
+print('RMSE :', RMSE(y_test, y_predict))
