@@ -32,10 +32,15 @@ from keras.layers import Dense, Input
 
 # model=Sequential()# 순차적으로 실행
 
-input1 = Input(shape=(3,)) # input layer 형태
-dense1 = Dense(256)(input1) # 바로 앞 layer를 뒷부분에 명시
-dense2 = Dense(256)(dense1)
-output1 = Dense(1)(dense2)
+# input1 = Input(shape=(3,)) # input layer 형태
+# dense1 = Dense(256)(input1) # 바로 앞 layer를 뒷부분에 명시
+# dense2 = Dense(256)(dense1)
+# output1 = Dense(1)(dense2)
+
+input1 = Input(shape=(3,)) 
+x = Dense(256)(input1) # 굳이 hidden layer의 이름을 다르게 지정해줄 필요가 없음
+x = Dense(256)(x)
+output1 = Dense(1)(x)
 
 model = Model(inputs = input1, outputs = output1)# 함수형 model 선언
 
@@ -49,7 +54,7 @@ model.summary() # 모델 구조 확인
 
 #3. 모델 훈련
 model.compile(loss='mse', optimizer='adam', 
-              metrics=['mse']) # adam=평타는 침. # 이 때문에 아래서 acc가 나온다.
+              metrics=['mse']) # adam=평타는 침. # metrics는 보여주는 것.
 model.fit(x_train, y_train, epochs=100, batch_size=1, validation_data=(x_val, y_val))
 
 
