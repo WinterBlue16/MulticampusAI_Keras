@@ -108,7 +108,7 @@ model.fit([x1_train, x2_train], [y1_train, y2_train, y3_train], epochs=100, batc
 
 #4. 평가예측 
 # a, b, c, d, e, f, g = model.evaluate([x1_test, x2_test],
-#                            [y1_test, y2_test, y3_test], batch_size=1) # loss는 자동적으로 출력
+#                            [y1_test, y2_test, y3_test], batch_size=1) # loss는 자동적으로 출력 # 변수를 7개 주면 ok!
 # print(a, b, c, d, e, f, g)
 
 gg = model.evaluate([x1_test, x2_test],
@@ -126,23 +126,44 @@ ggg = model.predict([x1_prd, x2_prd], batch_size=1)
 print(ggg)
 
 
-'''
 # RMSE, R2 확인을 위한 변수 생성
 y_predict = model.predict([x1_test, x2_test], batch_size=1)
+
 
 # RMSE 구하기
 from sklearn.metrics import mean_squared_error
 
-def RMSE(y_test, y_predict): # 실제 정답값(=y_test), 모델을 통한 예측값(=y_predict) 
-    return np.sqrt(mean_squared_error(y_test, y_predict))
-print('RMSE :', RMSE(y_test, y_predict))
+def RMSE(x, y): # 실제 정답값(=y_test), 모델을 통한 예측값(=y_predict) 
+    return np.sqrt(mean_squared_error(x, y))
 
+aaa = [RMSE(y1_test, y_predict[0]), RMSE(y2_test, y_predict[1]), RMSE(y3_test, y_predict[2])]
+# print(aaa)
+RMSE_AVG = np.mean(aaa)
+print('RMSE :', RMSE_AVG)
+
+# # 선생님 풀이
+# a1 = RMSE(y1_test, y_predict[0])
+# a2 = RMSE(y2_test, y_predict[1])
+# a3 = RMSE(y3_test, y_predict[2])
+
+# rmse = (a1 + a2 + a3) / 3
+# print('RMSE :', rmse)
 
 # R2 구하기
 # R2 정의 및 참고 : https://newsight.tistory.com/259
 from sklearn.metrics import r2_score
 
-r2_y_predict = r2_score(y_test, y_predict)
+bbb = [r2_score(y1_test, y_predict[0]), r2_score(y2_test, y_predict[1]), r2_score(y3_test, y_predict[2])]
+r2_y_predict = np.mean(bbb)
+
 print("R2 :", r2_y_predict)
-'''
+
+# # 선생님 풀이
+# r1 = r2_score(y1_test, y_predict[0])
+# r2 = r2_score(y2_test, y_predict[1])
+# r3 = r2_score(y3_test, y_predict[2])
+
+# r2_avg = (r1 + r2 + r3) / 3
+# print('R2 score :', rmse)
+
 # visual studio code 참고(https://demun.github.io/vscode-tutorial/shortcuts/)
