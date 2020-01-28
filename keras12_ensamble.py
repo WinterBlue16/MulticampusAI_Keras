@@ -1,6 +1,9 @@
 # Multi Layer Perceptron
 # Ensamble Model 만들기
 
+# model을 단순화하는 것도 가능하지만, 각 model의 depth나 노드 수를 다르게 하여 weight의 값 변화를 측정, 비교하는 것이 가능함.
+
+
 #1. 데이터, 라이브러리 불러오기
 import numpy as np
 
@@ -49,7 +52,7 @@ output2 = Dense(10)(dense23)
 
 # Concatenate
 from keras.layers.merge import concatenate # model을 사슬처럼 엮다.
-merge1 = concatenate([output1, output2]) # list 형식(=[]) # merge layer 역시 hidden layer! 따라서 노드 수를 굳이 맞춰주지 않아도 된다.
+merge1 = concatenate([output1, output2]) # list 형식(=[]) # merge layer 역시 hidden layer! 따라서 끝 노드 수를 굳이 맞춰주지 않아도 된다.
 
 
 # Model 3
