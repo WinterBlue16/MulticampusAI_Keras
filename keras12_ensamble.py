@@ -93,7 +93,7 @@ x2_prd = np.array([[657, 325, 894], [987, 899, 765], [473, 569, 907]]).T
 g = model.predict([x1_prd, x2_prd], batch_size=1)
 print(g)
 
-
+# RMSE, R2 확인을 위한 변수 생성
 y_predict = model.predict([x1_test, x2_test], batch_size=1)
 
 # RMSE 구하기
