@@ -7,13 +7,7 @@ import numpy as np
 x1 = np.array([range(1, 101), range(101,201), range(301, 401)]) # (3, 100)
 x2 = np.array([range(1001, 1101), range(1101,1201), range(1301, 1401)]) 
 y = np.array([range(1, 101)]) # (1, 100) # 대괄호가 있을 경우 벡터가 아닌 행렬이 된다!
-# y2 = np.array([range(1001, 1101)])
-
-# y = np.array(range(1, 101)) # (100,) # Output은 벡터여도 전혀 상관없다. reshape도 필요없음!
-
-# print(x.shape) # (3, 100)
-# print(y.shape) # (1, 100)
-# print(y.shape) # (100,)
+# y2 = np.array([range(1001, 1101)]) # input과 output의 갯수는 다를 수 있어도 행은 동일해야 한다!
 
 # 행, 열 변환(reshape, np.transpose, T)
 # 참고 : https://rfriend.tistory.com/289
@@ -99,7 +93,7 @@ y_predict = model.predict([x1_test, x2_test], batch_size=1)
 # RMSE 구하기
 from sklearn.metrics import mean_squared_error
 
-def RMSE(y_test, y_predict): # 실제 정답값, 모델을 통한 예측값 
+def RMSE(y_test, y_predict): # 실제 정답값(=y_test), 모델을 통한 예측값(=y_predict) 
     return np.sqrt(mean_squared_error(y_test, y_predict))
 print('RMSE :', RMSE(y_test, y_predict))
 
