@@ -9,9 +9,11 @@ x1 = array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8],
             [7, 8, 9], [8, 9, 10], [9, 10, 11], [10, 11, 12], [20, 30, 40], [30, 40, 50], [40, 50, 60]]) 
 y1 = array([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 50, 60, 70]) # 벡터가 아닌 행렬로 집어넣을 경우 shape 오류가 발생한다!!
 
-x2 = array([[10, 20, 30], [20, 30, 40], [30, 40, 50], [40, 50, 60], [50, 60, 70], [60, 70, 80],
-            [70, 80, 90], [80, 90, 100], [90, 100, 110], [100, 110, 120], [2, 3, 4], [3, 4, 5], [4, 5, 6]]) 
+x2 = array([[10, 20, 30], [20, 30, 40], [30, 40, 50], [40, 50, 60], [50, 60, 70], 
+            [60, 70, 80],[70, 80, 90], [80, 90, 100], [90, 100, 110], [100, 110, 120], 
+            [2, 3, 4], [3, 4, 5], [4, 5, 6]]) 
 y2 = array([40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 5, 6, 7])
+# y2 = array([40, 50, 60, 70, 80, 90, 100, 110, 5, 6, 7]) # ensamble Model은 input이 다수일 경우 shape이 모두 같아야 한다!
 
 '''
 print(x.shape)
@@ -36,7 +38,7 @@ dense1 = Dense(256)(dense1)
 dense1 = Dense(128)(dense1)
 dense1 = Dense(256)(dense1)
 dense1 = Dense(256)(dense1)
-output_1 = Dense(2)(dense1)
+output_1 = Dense(4)(dense1)
 
 # LSTM 2
 input2 = Input(shape=(3, 1))
@@ -48,10 +50,15 @@ dense2 = Dense(256)(dense2)
 dense2 = Dense(256)(dense2)
 output_2 = Dense(4)(dense2)
 
-# Concatenate
-from keras.layers.merge import concatenate # model을 사슬처럼 엮다.
+# Merge
+from keras.layers.merge import concatenate, Add, Multiply, Minimum, Maximum, Average, Subtract, Dot # model을 사슬처럼 엮다.
 merge1 = concatenate([output_1, output_2])
-
+# merge1 = Add()([output_1, output_2])
+# merge1 = Multiply()([output_1, output_2])
+# merge1 = Minimum()([output_1, output_2])
+# merge1 = Maximum()([output_1, output_2])
+# merge1 = Average()([output_1, output_2])
+# merge1 = Subtract()([output_1, output_2])
 
 # output 1(분기1)
 output1 = Dense(64)(merge1)
@@ -101,4 +108,4 @@ y_predict = model.predict([x1_input, x2_input])
 print(y_predict)
 
 # 8. 하이퍼 파라미터 튜닝
-# 튜닝 가능한 파라미터 => epochs, batch size, Dense(layer), EarlyStopping patience 
+# 튜닝 가능한 파라미터 => epochs, batch size, Dense(layer) 수, node 수, patience 
