@@ -50,10 +50,13 @@ dense22 = Dense(8)(dense21)
 dense23 = Dense(128)(dense22)
 output2 = Dense(10)(dense23)
 
-# Concatenate
-from keras.layers.merge import concatenate # model을 사슬처럼 엮다.
-merge1 = concatenate([output1, output2]) # list 형식(=[]) # merge layer 역시 hidden layer! 따라서 끝 노드 수를 굳이 맞춰주지 않아도 된다.
+# concatenate
+# from keras.layers.merge import concatenate # model을 사슬처럼 엮다.
+# merge1 = concatenate([output1, output2]) # list 형식(=[]) # merge layer 역시 hidden layer! 따라서 끝 노드 수를 굳이 맞춰주지 않아도 된다.
 
+# Concatenate(참조: https://keras.io/layers/merge/#concatenate)
+from keras.layers.merge import Concatenate # from keras.layers import Concatenate
+merge1 = Concatenate()([output1, output2])
 
 # Model 3
 middle1 = Dense(3)(merge1)

@@ -1,5 +1,5 @@
 # Multi Layer Perceptron
-# Ensamble Model 만들기 3(분기 만들기, 일대다 model)
+# 단순분기(일대다 model)
 
 
 #1. 데이터, 라이브러리 불러오기
