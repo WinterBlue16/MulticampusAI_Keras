@@ -62,15 +62,15 @@ merge1 = concatenate([output_1, output_2])
 
 # output 1(분기1)
 output1 = Dense(64)(merge1)
-output1 = Dense(256)(merge1)
-output1 = Dense(8)(merge1)
+output1 = Dense(256)(output1)
+output1 = Dense(8)(output1)
 output1 = Dense(1)(output1)
 
 
 # output 2(분기2)
 output2 = Dense(32)(merge1)
-output2 = Dense(128)(merge1)
-output2 = Dense(64)(merge1)
+output2 = Dense(128)(output2)
+output2 = Dense(64)(output2)
 output2 = Dense(1)(output2)
 
 
