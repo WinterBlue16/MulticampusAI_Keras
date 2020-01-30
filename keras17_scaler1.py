@@ -14,10 +14,16 @@ print(y.shape)
 '''
 
 # 2. 전처리(preprocessing)를 위한 라이브러리 불러오기
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
+# 2.1. MinMaxScaler
 scaler = MinMaxScaler() # 함수 정의 # 모든 데이터값을 최솟값(=0)과 최댓값(=1)사이의 값으로 채워넣는다!
-scaler.fit(x)
-x = scaler.transform(x)
-print(x)
+scaler.fit(x) # 훈련
+x1 = scaler.transform(x) # 적용
+print(x1)
 
+# 2.2 StandardScaler
+scaler = StandardScaler() # 
+scaler.fit(x) 
+x2 = scaler.transform(x) 
+print(x2)
