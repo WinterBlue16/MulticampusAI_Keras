@@ -32,7 +32,7 @@ from sklearn.preprocessing import RobustScaler, MaxAbsScaler
 # print(x)
 
 # # 2.3 RobustScaler
-scaler = RobustScaler() # 중앙값(median)과 IQR(25% 이하, 75% 이상 값들) 사용 
+scaler = RobustScaler() # 중앙값(median)과 IQR 사용(참고: https://m.blog.naver.com/PostView.nhn?blogId=sw4r&logNo=221021173204&proxyReferer=https%3A%2F%2Fwww.google.com%2F) 
 # StandradScaler와 동일한 값을 보다 넓게 분포
 scaler.fit(x) 
 scaler.transform(x) 
