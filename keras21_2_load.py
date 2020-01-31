@@ -39,19 +39,20 @@ model = load_model('./save/savetest01.h5')
 # model.summary()
 
 # 3.1. Layer 추가해 모델 수정하기
+# 참고(https://rarena.tistory.com/entry/keras-%ED%8A%B9%EC%A0%95-%EB%AA%A8%EB%8D%B8%EB%A1%9C%EB%93%9C%ED%95%98%EC%97%AC-%EB%82%B4-%EB%A0%88%EC%9D%B4%EC%96%B4, https://stackoverflow.com/questions/56456471/valueerror-the-name-dense-1-is-used-2-times-in-the-model-all-layer-names-sho)
 # input1 = Input(shape=(1,))
-# input1 = model.output
-# dense = Dense(256, name='dense_x')(input1) # Layer 이름을 새로 지정해줘야 한다!! default=dense_1 
-# dense2 = Dense(256, name='dense_y')(dense)
-# dense3 = Dense(256, name='dense_z')(dense2)
-# output1 = Dense(1, name='output_final')(dense3)
+input1 = model.output
+dense = Dense(256, name='dense_x')(input1) # Layer 이름을 새로 지정해줘야 한다!! default=dense_1 
+dense2 = Dense(256, name='dense_y')(dense)
+dense3 = Dense(256, name='dense_z')(dense2)
+output1 = Dense(1, name='output_final')(dense3)
 
-# model_f = Model(inputs=model.input, outputs=output1)
+model_f = Model(inputs=model.input, outputs=output1)
 
-model.add(Dense(256))
-model.add(Dense(256))
-model.add(Dense(256))
-model.add(Dense(1))
+# model.add(Dense(256))
+# model.add(Dense(256))
+# model.add(Dense(256))
+# model.add(Dense(1))
 
 #3. 모델 훈련
 from keras.callbacks import EarlyStopping, TensorBoard
