@@ -28,7 +28,7 @@ from sklearn.preprocessing import RobustScaler, MaxAbsScaler
 # 2.2 StandardScaler
 # scaler = StandardScaler() # 데이터값 - 평균 / 표준편차
 # scaler.fit(x) 
-# x = scaler.transform(x) 
+# x = scaler.transform(x)  
 # print(x)
 
 # # 2.3 RobustScaler
