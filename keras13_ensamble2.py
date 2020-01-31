@@ -101,9 +101,16 @@ model.summary() # 모델 구조 확인
 
 
 #3. 모델 훈련(지표 두 개를 한번에 확인할 수 있다)
+from keras.callbacks import EarlyStopping, TensorBoard
+
+td_hist = TensorBoard(log_dir='./graph',
+                      histogram_freq=0,
+                      write_graph=True,
+                      write_images=True)
+
 model.compile(loss='mse', optimizer='adam', 
               metrics=['acc']) # adam=평타는 침. # metrics는 보여주는 것.
-model.fit([x1_train, x2_train], [y1_train, y2_train, y3_train], epochs=100, batch_size=1, validation_data=([x1_val, x2_val], [y1_val, y2_val, y3_val]))
+model.fit([x1_train, x2_train], [y1_train, y2_train, y3_train], epochs=100, batch_size=1, callbacks=[td_hist], validation_data=([x1_val, x2_val], [y1_val, y2_val, y3_val]))
 
 
 #4. 평가예측 
