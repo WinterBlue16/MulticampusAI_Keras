@@ -40,13 +40,18 @@ model = load_model('./save/savetest01.h5')
 
 # 3.1. Layer 추가해 모델 수정하기
 # input1 = Input(shape=(1,))
-input1 = model.output
-dense = Dense(256, name='dense_x')(input1) # Layer 이름을 새로 지정해줘야 한다!! default=dense_1 
-dense2 = Dense(256, name='dense_y')(dense)
-dense3 = Dense(256, name='dense_z')(dense2)
-output1 = Dense(1, name='output_final')(dense3)
+# input1 = model.output
+# dense = Dense(256, name='dense_x')(input1) # Layer 이름을 새로 지정해줘야 한다!! default=dense_1 
+# dense2 = Dense(256, name='dense_y')(dense)
+# dense3 = Dense(256, name='dense_z')(dense2)
+# output1 = Dense(1, name='output_final')(dense3)
 
-model_f = Model(inputs=model.input, outputs=output1)
+# model_f = Model(inputs=model.input, outputs=output1)
+
+model.add(Dense(256))
+model.add(Dense(256))
+model.add(Dense(256))
+model.add(Dense(1))
 
 #3. 모델 훈련
 from keras.callbacks import EarlyStopping, TensorBoard
@@ -59,7 +64,7 @@ td_hist = TensorBoard(log_dir='./graph',
 early_stopping = EarlyStopping(monitor='loss', patience=10, mode='auto')
 model_f.compile(loss='mse', optimizer='adam', 
               metrics=['mae']) # adam=평타는 침. # 이 때문에 아래서 acc가 나온다.
-model_f.fit(x_train, y_train, epochs=100, batch_size=1, validation_data=(x_val, y_val))
+model_f.fit(x_train, y_train, epochs=100, batch_size=1, callbacks=[td_hist], validation_data=(x_val, y_val))
 
 #4. 평가예측 
 loss, mse = model_f.evaluate(x_test, y_test, batch_size=1) # loss는 자동적으로 출력
