@@ -38,7 +38,7 @@ model = load_model('./save/savetest01.h5')
 
 # model.summary()
 
-# Layer 추가해 모델 수정하기
+# 3.1. Layer 추가해 모델 수정하기
 # input1 = Input(shape=(1,))
 input1 = model.output
 dense = Dense(256, name='dense_x')(input1) # Layer 이름을 새로 지정해줘야 한다!! default=dense_1 
