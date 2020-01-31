@@ -75,7 +75,7 @@ model.compile(loss='mse', optimizer='adam',
               metrics=['mae']) # adam=평타는 침. # 이 때문에 아래서 acc가 나온다.
 
 model.fit(x_train, [y1_train, y2_train, y3_train], epochs=100, batch_size=2, 
-          callbacks=[early_stopping], 
+          callbacks=[early_stopping, td_hist], 
           validation_data=(x_val, [y1_val, y2_val, y3_val]))
 
 
