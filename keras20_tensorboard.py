@@ -68,7 +68,7 @@ from keras.callbacks import EarlyStopping, TensorBoard
 td_hist = TensorBoard(log_dir='./graph',
                       histogram_freq=0,
                       write_graph=True,
-                      write_images=True)
+                      write_images=True) # cmd 열기 => 작업폴더(keras)로 이동 => 명령어 tensorboard --logdir=./graph
 
 early_stopping = EarlyStopping(monitor='loss', patience=10, mode='auto')# patience=N, 원하는 값이 나온 후(ex> min, max), 다른 값이 나오지 않은 상태로 N번 지날 경우 멈춤 
 model.compile(loss='mse', optimizer='adam', 

@@ -16,9 +16,12 @@ def split_sequence(sequence, n_steps):
 
 
 dataset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-n_steps = 3
 
-x, y = split_sequence(dataset, n_steps)
+for n_steps in range(1, 10):
+    x, y = split_sequence(dataset, n_steps)
+    print('n_steps :', n_steps)
+    print(x)
+    print(y)
+    print()
 
-print(x)
-print(y)
+
