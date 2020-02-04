@@ -13,13 +13,13 @@ print(kospi200.shape)
 def split_xy5(dataset, time_steps, y_column):
     x, y = list(), list()
     for i in range(len(dataset)):
-        x_end_number = i + time_steps
-        y_end_number = x_end_number + y_column
+        x_end_number = i + time_steps # x의 끝 값(몇 개씩 자를 것인가)
+        y_end_number = x_end_number + y_column # y의 시작값
         
         if y_end_number > len(dataset):
             break
-        tmp_x = dataset[i:x_end_number, :]
-        tmp_y = dataset[x_end_number:y_end_number, 3]
+        tmp_x = dataset[i:x_end_number, :] # x의 위치 => 행 지정, 열 전부
+        tmp_y = dataset[x_end_number:y_end_number, 3] # y의 위치, 숫자는 '종가'의 idx
         x.append(tmp_x)
         y.append(tmp_y)
         
@@ -28,3 +28,4 @@ def split_xy5(dataset, time_steps, y_column):
 x, y =split_xy5(samsung, 5, 1)
 print(x.shape)
 print(y.shape)
+print(x[0,:], '\n', y[0])
