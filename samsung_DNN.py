@@ -64,7 +64,6 @@ print(type(y))
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.7)
-x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, test_size=0.5)
 
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import RobustScaler, MaxAbsScaler
@@ -108,7 +107,7 @@ model.add(Dense(1))
 # early_stopping = EarlyStopping(monitor='loss', patience=10, mode='auto')
 model.compile(loss='mae', optimizer='adam', 
               metrics=['mse']) # adam=평타는 침. # 이 때문에 아래서 acc가 나온다.
-model.fit(x_train, y_train, epochs=100, batch_size=5)
+model.fit(x_train, y_train, epochs=100, batch_size=5, validation_split=0.15)
 
 
 # 6. 평가예측 
@@ -116,6 +115,7 @@ loss, mae = model.evaluate(x_test, y_test, batch_size=5) # loss는 자동적으�
 # mae = mean_absolute_error, mse와 다른 손실함수
 # 데이터 크기보다 더 큰 batch size를 줄 경우 데이터 크기로 계산
 print('loss :', loss)
+print('mae :', mae)
 
 # model.summary()
 

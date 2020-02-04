@@ -65,7 +65,6 @@ print(type(y))
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.7)
-x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, test_size=0.5)
 
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import RobustScaler, MaxAbsScaler
