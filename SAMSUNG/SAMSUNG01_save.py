@@ -35,3 +35,4 @@ print(df1.shape, df2.shape)
 
 np.save('./SAMSUNG/DATA/Samsung.npy', arr=df1) # np.array 파일로 저장(원래 데이터로 작업하지 말 것!!!)
 np.save('./SAMSUNG/DATA/kospi200.npy', arr=df2)
+

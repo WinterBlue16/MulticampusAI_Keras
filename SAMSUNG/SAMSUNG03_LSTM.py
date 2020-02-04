@@ -25,7 +25,8 @@ def split_xy5(dataset, time_steps, y_column): # y_column 뒤에 다른 column을
         
     return np.array(x), np.array(y)
 
-x, y =split_xy5(samsung, 5, 1)
+time_steps = 7
+x, y =split_xy5(samsung, 7, 1)
 print(x.shape)
 print(y.shape)
 print(x[0,:], '\n', y[0])
@@ -56,19 +57,20 @@ print(x_test)
 print(x_train.shape)
 print(x_test.shape)
 
-# x_train = x_train.reshape(x_train.shape[0], 5, 5) # 다시 3차원 변경(LSTM 사용 시)
-# x_test = x_test.reshape(x_test.shape[0], 5, 5) 
+x_train_scaled = x_train.reshape(x_train.shape[0], 7, 5) # 다시 3차원 변경(LSTM 사용 시)
+x_test_scaled = x_test.reshape(x_test.shape[0], 7, 5) 
 
-# print(x_train.shape)
-# print(x_test.shape)
+print(x_train_scaled.shape)
+print(x_test_scaled.shape)
 
 
 # 3. 모델 구성
 from keras.models import Model
-from keras.layers import Input, Dropout, BatchNormalization, Dense
+from keras.layers import Input, Dropout, BatchNormalization, Dense, LSTM
 
-input1 = Input(shape=(25,))
-x = Dense(256)(input1)
+input1 = Input(shape=(7, 5))
+x = LSTM(256, activation='selu', return_sequences=True)(input1)
+x = LSTM(256, activation='selu')(x)
 x = Dense(256)(x)
 x = BatchNormalization()(x)
 x = Dense(256)(x)
@@ -80,21 +82,21 @@ model = Model(inputs=input1, outputs=output1)
 
 
 # 5. 모델 훈련
-from keras.callbacks import EarlyStopping, TensorBoard
-td_hist = TensorBoard(log_dir='./graph',
-                      histogram_freq=0,
-                      write_graph=True,
-                      write_images=True)
+# from keras.callbacks import EarlyStopping, TensorBoard
+# td_hist = TensorBoard(log_dir='./graph',
+#                       histogram_freq=0,
+#                       write_graph=True,
+#                       write_images=True)
 
-early_stopping = EarlyStopping(monitor='loss', patience=60, mode='auto')
+# early_stopping = EarlyStopping(monitor='loss', patience=60, mode='auto')
 
 
 model.compile(loss='mae', optimizer='adam', 
               metrics=['mse']) # adam=평타는 침. # 이 때문에 아래서 acc가 나온다.
-model.fit(x_train, y_train, epochs=500, batch_size=5, validation_split=0.2, callbacks=[early_stopping, td_hist])
+model.fit(x_train_scaled, y_train, epochs=150, batch_size=10, validation_split=0.2)
 
 # 6. 평가예측 
-loss, mae = model.evaluate(x_test, y_test, batch_size=5) # loss는 자동적으로 출력
+loss, mae = model.evaluate(x_test_scaled, y_test, batch_size=10) # loss는 자동적으로 출력
 # mae = mean_absolute_error, mse와 다른 손실함수
 # 데이터 크기보다 더 큰 batch size를 줄 경우 데이터 크기로 계산
 print('loss :', loss)
@@ -106,7 +108,7 @@ print('mae :', mae)
 # 7. RMSE 구하기
 from sklearn.metrics import mean_squared_error
 
-y_predict = model.predict(x_test, batch_size=5)
+y_predict = model.predict(x_test_scaled, batch_size=10)
 
 def RMSE(y_test, y_predict): # 실제 정답값, 모델을 통한 예측값 
     return np.sqrt(mean_squared_error(y_test, y_predict))
@@ -114,9 +116,10 @@ print('RMSE :', RMSE(y_test, y_predict))
 
 
 # 9. 예측값 구하기(2월 3일)
-x_prd = samsung[421:]
-x_prd = x_prd.reshape(1, 25)
-x_prd = scaler.transform(x_prd)
-result = model.predict(x_prd, batch_size=5)
+x_prd = samsung[419:]
+x_prd = x_prd.reshape(1, 35)
+x_prd_scaled = scaler.transform(x_prd)
+x_prd_scaled = x_prd_scaled.reshape(1, 7, 5)
+result = model.predict(x_prd_scaled, batch_size=10)
 print(result)
 
