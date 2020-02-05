@@ -27,14 +27,14 @@ print(y_train.shape) # 분류 클래스 개수만큼 생성
 
 # 3. model 만들기
 model = Sequential()
-model.add(Dense(256, input_shape=(x_train.shape[1],))) # 가능하면 변수로 바꾸자:)
-model.add(Dense(256, activation='relu'))
+model.add(Dense(512, input_shape=(x_train.shape[1],))) # 가능하면 변수로 바꾸자:)
+model.add(Dense(512, activation='relu'))
 model.add(BatchNormalization())
-model.add(Dense(256, activation='relu'))
-model.add(Dense(256, activation='relu'))
-model.add(Dense(256, activation='relu'))
+model.add(Dense(512, activation='relu'))
+model.add(Dense(512, activation='relu'))
+model.add(Dense(512, activation='relu'))
 model.add(Dropout(0.6))
-model.add(Dense(100, activation='relu'))
+model.add(Dense(256, activation='relu'))
 model.add(Dropout(0.6))
 model.add(Dense(10, activation='softmax'))# activation은 add()가 아닌 Dense()에 포함되어 있다!
 
@@ -46,12 +46,12 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 early_stopping = EarlyStopping(monitor='loss', patience=20)
 hist = model.fit(x_train, y_train, validation_split=0.2, 
-          epochs=50, batch_size=80,
+          epochs=50, batch_size=100,
           callbacks=[early_stopping])
 
 acc = model.evaluate(x_test, y_test)
 print(acc)
-# print(hist.history.keys())
+print(hist.history.keys())
 
 import matplotlib.pyplot as plt
 
@@ -69,4 +69,4 @@ plt.show()
 # [2.6441680992126466, 0.4655] => batch_size 조정(30 => 100), epochs 조정(100=>50)/Overfitting 발생
 # [2.248015411376953, 0.4718] => hidden layer 2개 추가(node 256), BatchNormalizaion, Dropout/Overfitting 발생
 # [1.8134197942733765, 0.4827] => hidden layer 1개 삭제, Dropout(0.4 => 0.5)/Overfitting 개선
-# [1.9046162055969238, 0.481] => hidden layer(node 256 => 512), Dropout(0.5=>0.6)
+# 
