@@ -24,7 +24,7 @@ x = iris_data.loc[:, ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth']]
 # 3. train, test split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, train_size=0.7)
 
-# 4. gridsearch에서 사용할 매개 변수 ---(*1)
+# 4. gridsearch에서 사용할 매개 변수(파라미터) ---(*1)
 parameters = [
     {"C": [1, 10, 100, 1000], "kernel": ['linear']},
     {"C": [1, 10, 100, 1000], "kernel": ['rbf'], "gamma": [0.001, 0.0001]},
