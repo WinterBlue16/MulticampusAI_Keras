@@ -20,10 +20,10 @@ x = iris_data.loc[:, ['SepalLength', 'SepalWidth', 'PetalLength', 'PetalWidth']]
 
 # 3. classifier 알고리즘 전부 추출하기------(*1)
 warnings.filterwarnings('ignore')
-allAlgorithms = all_estimators(type_filter='classifier') # 당연히 'regresser'도 존재
+allAlgorithms = all_estimators(type_filter='classifier') # 당연히 'regressor'도 존재
 
 # 4. kfold 적용
-kfold_cv = KFold(n_splits=10, shuffle=True)
+kfold_cv = KFold(n_splits=5, shuffle=True)
 
 for (name, algorithm) in allAlgorithms:
     # 각 알고리즘 객체 생성하기-------------(*2)
