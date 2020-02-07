@@ -1,4 +1,4 @@
-# GridSearch
+# GridSearch(참고 : https://m.blog.naver.com/PostView.nhn?blogId=gustn3964&logNo=221431933811&categoryNo=13&proxyReferer=https%3A%2F%2Fwww.google.com%2F)
 # 제공한 파라미터 중 가장 높은 정확도를 내는 최적의 조건을 찾는다!
 
 import pandas as pd
