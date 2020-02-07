@@ -8,6 +8,7 @@ df2 = pd.read_csv('./test_data/KOSPI.csv', index_col=0, header=0, encoding='cp94
 print(df1.shape) # (2458,6)
 # print(df2.shape) # (2471,6) # 갯수가 맞지 않음
 
+
 # 2. 데이터 크기 조정
 df2 = df2.sort_values(['Date'], ascending=False) # 데이터 내림차순으로 변경
 df2 = df2[:2458] # 오래된 데이터 분리
@@ -21,14 +22,15 @@ print(df2.tail()) # 최근 데이터인지 확인
 
 # 3. 데이터 전처리
 df1 = df1.values # np.array로 변경
-df2 = df2.values 
+# df2 = df2.values 
 
 # print(type(df1), type(df2)) # shape 확인
-# print(df1.shape, df2.shape)
-
+print(df1)
+print(df2)
+'''
 np.save('./test_data/samsung_data.npy', arr=df1) # np.array 파일로 저장(원래 데이터로 작업하지 말 것!!!)
 np.save('./test_data/KOSPI.npy', arr=df2)
-
+'''
 
 # 4. 추가 데이터
 df3 = pd.read_csv('./test_data/exchange_rate(CNY).csv', index_col=0, header=0, encoding='cp949', sep=',', thousands=',')
